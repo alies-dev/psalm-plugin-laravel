@@ -83,7 +83,7 @@ class HasManyThrough extends Relation
      * @param  mixed  $id
      * @param  list<non-empty-string>  $columns
      * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Eloquent\Collection
-     * @psalm-return (T is (array|\Illuminate\Contracts\Support\Arrayable) ? \Illuminate\Database\Eloquent\Collection<TRelatedModel>|null : TRelatedModel|null)
+     * @psalm-return (T is (array|\Illuminate\Contracts\Support\Arrayable) ? \Illuminate\Database\Eloquent\Collection<int, TRelatedModel>|null : TRelatedModel|null)
      */
     public function find($id, $columns = ['*']) {}
 
@@ -93,7 +93,7 @@ class HasManyThrough extends Relation
      * @param  mixed  $ids
      * @param  list<non-empty-string>  $columns
      * @return \Illuminate\Database\Eloquent\Collection
-     * @psalm-return \Illuminate\Database\Eloquent\Collection<TRelatedModel>
+     * @psalm-return \Illuminate\Database\Eloquent\Collection<int, TRelatedModel>
      */
     public function findMany($ids, $columns = ['*']) {}
 
@@ -104,7 +104,7 @@ class HasManyThrough extends Relation
      * @param  mixed  $id
      * @param  list<non-empty-string>  $columns
      * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Eloquent\Collection
-     * @psalm-return (T is (array|\Illuminate\Contracts\Support\Arrayable) ? \Illuminate\Database\Eloquent\Collection<TRelatedModel> : TRelatedModel)
+     * @psalm-return (T is (array|\Illuminate\Contracts\Support\Arrayable) ? \Illuminate\Database\Eloquent\Collection<int, TRelatedModel> : TRelatedModel)
      *
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
@@ -115,7 +115,7 @@ class HasManyThrough extends Relation
      *
      * @param  list<non-empty-string>  $columns
      * @return \Illuminate\Database\Eloquent\Collection
-     * @psalm-return \Illuminate\Database\Eloquent\Collection<TRelatedModel>
+     * @psalm-return \Illuminate\Database\Eloquent\Collection<int, TRelatedModel>
      */
     public function get($columns = ['*']) {}
 }
