@@ -30,26 +30,25 @@ Feature: Eloquent Builder types
     """
     final class UserRepository
     {
-
         /**
-        * @return Builder<User>
-        */
+         * @return Builder<User>
+         */
         public function getNewQuery(): Builder
         {
           return User::query();
         }
 
         /**
-        * @return Builder<User>
-        */
+         * @return Builder<User>
+         */
         public function getNewModelQuery(): Builder
         {
           return (new User())->newModelQuery();
         }
 
         /**
-        * @param Builder<User> $builder
-        */
+         * @param Builder<User> $builder
+         */
         public function firstOrFailFromBuilderInstance(Builder $builder): User {
           return $builder->firstOrFail();
         }
@@ -63,7 +62,7 @@ Feature: Eloquent Builder types
 
         /**
         * @param Builder<User> $builder
-        * @return Collection<User>
+        * @return Collection<int, User>
         */
         public function findMultipleOrFailFromBuilderInstance(Builder $builder): Collection {
           return $builder->findOrFail([1, 2]);
@@ -121,7 +120,7 @@ Feature: Eloquent Builder types
         }
 
         /**
-        * @psalm-return Collection<User>
+        * @psalm-return Collection<int, User>
         */
         public function getWhereViaStatic(array $attributes): Collection
         {
@@ -132,7 +131,7 @@ Feature: Eloquent Builder types
     When I run Psalm
     Then I see no errors
 
-  Scenario: Unknown Scenario
+  Scenario: Errors on calling Model method that is not exist even through magic
     Given I have the following code preamble
     """
     <?php declare(strict_types=1);
@@ -241,7 +240,7 @@ Feature: Eloquent Builder types
       return $builder->whereDate('created_at', '>', 1);
     }
     """
-    And I have Psalm older than "5.0.0" (because of "changed issue message")
+    And I have Psalm older than "5.0.0" (because of "changed issue type")
     When I run Psalm
     Then I see these errors
       | Type  | Message |

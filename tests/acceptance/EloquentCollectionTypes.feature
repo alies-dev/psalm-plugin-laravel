@@ -16,7 +16,7 @@ Feature: Eloquent Collection types
       </psalm>
       """
 
-  Scenario: Unknown Scenario
+  Scenario: Model calls return generics of correct types
     Given I have the following code
     """
     <?php declare(strict_types=1);
@@ -28,7 +28,7 @@ Feature: Eloquent Collection types
     final class UserRepository
     {
         /**
-        * @psalm-return \Illuminate\Database\Eloquent\Collection<User>
+        * @psalm-return \Illuminate\Database\Eloquent\Collection<int, User>
         */
         public function getAll(): \Illuminate\Database\Eloquent\Collection
         {
@@ -49,11 +49,19 @@ Feature: Eloquent Collection types
         }
 
         /**
-        * @psalm-return \Illuminate\Database\Eloquent\Collection<User>
+        * @psalm-return \Illuminate\Database\Eloquent\Collection<int, User>
         */
         public function getWhere(array $attributes): \Illuminate\Database\Eloquent\Collection
         {
           return User::where($attributes)->get();
+        }
+
+        /**
+        * @psalm-return \Illuminate\Database\Eloquent\Collection<int, User>
+        */
+        public function getWhereUsingLessMagic(array $attributes): \Illuminate\Database\Eloquent\Collection
+        {
+          return User::query()->where($attributes)->get();
         }
     }
     """

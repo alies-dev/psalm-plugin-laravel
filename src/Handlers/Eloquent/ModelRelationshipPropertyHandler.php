@@ -19,6 +19,7 @@ use Psalm\Plugin\EventHandler\PropertyTypeProviderInterface;
 use Psalm\Plugin\EventHandler\PropertyVisibilityProviderInterface;
 use Psalm\Type;
 use Psalm\Type\Atomic\TGenericObject;
+use Psalm\Type\Atomic\TInt;
 use Psalm\Type\Union;
 
 use function in_array;
@@ -28,7 +29,7 @@ class ModelRelationshipPropertyHandler implements
     PropertyVisibilityProviderInterface,
     PropertyTypeProviderInterface
 {
-    /** @return array<string, string> */
+    /** @return list<class-string<\Illuminate\Database\Eloquent\Model>> */
     public static function getClassLikeNames(): array
     {
         return ModelStubProvider::getModelClasses();
@@ -143,6 +144,7 @@ class ModelRelationshipPropertyHandler implements
             if ($modelType && $relationType && in_array($relationType->value, $relationsThatReturnACollection)) {
                 $returnType = new Union([
                     new TGenericObject(Collection::class, [
+                        new Union([new TInt()]),
                         $modelType
                     ]),
                 ]);
